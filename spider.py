@@ -15,7 +15,7 @@ import re
 dmo_uri = 'https://www.amazon.com/'
 key_word = "corn light"
 
-driver = webdriver.Chrome(executable_path='/Users/juphoon/pp/spider/chromedriver')
+driver = webdriver.Chrome()
 
 
 def img_resize(infile, outfile):
@@ -36,6 +36,7 @@ def gen_xml(item_infos):
     worksheet.set_column('C:C', 20)
     worksheet.set_column('B:B', 10)
     worksheet.set_column('F:F', 50)
+    col = 0
     for i in range(len(item_infos)):
         col = i + 1
         try:
@@ -43,23 +44,32 @@ def gen_xml(item_infos):
             row = [item_info['id'], item_info['title'], item_info['pro_table'], item_info['uri'], '']
             worksheet.write_row(col, 0, row)
             worksheet.set_row(col, 120)
-            if 'item_pic_base64' in item_info:
-                item_pic_base64 = item_info["item_pic_base64"]
-                try:
-                    if 'https:' in item_pic_base64:
-                        data = driver.get(item_pic_base64)
-                    else:
-                        data = base64.b64decode(item_pic_base64)
-                    with open('test.png', 'wb') as f:
-                        f.write(data)
-                    img_resize('test.png', 'img/tmp%s.png' % i)
-                    worksheet.insert_image(col, 4, 'img/tmp%s.png' % i)  # 名字必须不同
-                except Exception as e:
-                    print(str(e))
+            # if 'item_pic_base64' in item_info:
+            #     item_pic_base64 = item_info["item_pic_base64"]
+            #     try:
+            #         if 'https:' in item_pic_base64:
+            #             data = driver.get(item_pic_base64)
+            #         else:
+            #             data = base64.b64decode(item_pic_base64)
+            #         with open('test.png', 'wb') as f:
+            #             f.write(data)
+            #         img_resize('test.png', 'img/tmp%s.png' % i)
+            #         worksheet.insert_image(col, 4, 'img/tmp%s.png' % i)  # 名字必须不同
+            #     except Exception as e:
+            #         print(str(e))
         except Exception as e:
             print(str(e))
     print('完成结果数,%s' % col)
     book.close()
+
+
+def is_contain_table(content):
+    tree = etree.HTML(content)
+    table = tree.xpath('//table[@id="productDetails_techSpec_section_1"]')
+    if len(table) > 0:
+        return True
+    else:
+        return False
 
 
 def get_pro_table(content):
@@ -116,7 +126,6 @@ def get_info(content):
 
 
 if __name__ == '__main__':
-
     tmp_uri = dmo_uri + '/s?k=%s&ref=nb_sb_noss_2' % quote(key_word)
     item_infos = []
     driver.get(tmp_uri)
@@ -127,15 +136,22 @@ if __name__ == '__main__':
     curl = 0
     for item_url in item_urls:
         curl += 1
+        if curl == 6:
+            break
         try:
             if not 'qid' in item_url:
                 continue
             else:
                 pro_url = dmo_uri + item_url
                 print(pro_url)
-                time.sleep(5)
-                driver.get(pro_url)
-                pro_content = driver.page_source
+
+                while True:
+                    driver.get(pro_url)
+                    pro_content = driver.page_source
+                    if is_contain_table(pro_content):
+                        break
+                    time.sleep(2)
+
                 item_info = get_info(pro_content)
                 item_info['id'] = str(curl)
                 item_info['uri'] = pro_url
@@ -144,10 +160,6 @@ if __name__ == '__main__':
             print('id is ' + str(curl))
             print(str(e))
 
-        if curl == 1:
-            break
-
     gen_xml(item_infos)
-
     print(curl)
     driver.quit()
