@@ -15,7 +15,7 @@ import re
 dmo_uri = 'https://www.amazon.com/'
 key_word = "corn light"
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome('/Users/juphoon/pp/spider/chromedriver')
 
 
 def img_resize(infile, outfile):
@@ -44,19 +44,19 @@ def gen_xml(item_infos):
             row = [item_info['id'], item_info['title'], item_info['pro_table'], item_info['uri'], '']
             worksheet.write_row(col, 0, row)
             worksheet.set_row(col, 120)
-            # if 'item_pic_base64' in item_info:
-            #     item_pic_base64 = item_info["item_pic_base64"]
-            #     try:
-            #         if 'https:' in item_pic_base64:
-            #             data = driver.get(item_pic_base64)
-            #         else:
-            #             data = base64.b64decode(item_pic_base64)
-            #         with open('test.png', 'wb') as f:
-            #             f.write(data)
-            #         img_resize('test.png', 'img/tmp%s.png' % i)
-            #         worksheet.insert_image(col, 4, 'img/tmp%s.png' % i)  # 名字必须不同
-            #     except Exception as e:
-            #         print(str(e))
+            if 'item_pic_base64' in item_info:
+                item_pic_base64 = item_info["item_pic_base64"]
+                try:
+                    if 'https:' in item_pic_base64:
+                        data = driver.get(item_pic_base64)
+                    else:
+                        data = base64.b64decode(item_pic_base64)
+                    with open('test.png', 'wb') as f:
+                        f.write(data)
+                    img_resize('test.png', 'img/tmp%s.png' % i)
+                    worksheet.insert_image(col, 4, 'img/tmp%s.png' % i)  # 名字必须不同
+                except Exception as e:
+                    print(str(e))
         except Exception as e:
             print(str(e))
     print('完成结果数,%s' % col)
@@ -117,7 +117,7 @@ def get_info(content):
     item_info = {"title": ""}
     title = get_xpath_one('//span[@id="productTitle"]/text()', content)
     item_info["title"] = title
-    item_pic_base64 = get_xpath_one('//div[@id="imgTagWrapperId"]/img/@src', page).split('base64,')[-1]
+    item_pic_base64 = get_xpath_one('//div[@id="imgTagWrapperId"]/img/@src', content).split('base64,')[-1]
     item_info["item_pic_base64"] = item_pic_base64
     pro_table = get_pro_table(content)
     item_info["pro_table"] = pro_table
@@ -151,6 +151,7 @@ if __name__ == '__main__':
                     if is_contain_table(pro_content):
                         break
                     time.sleep(2)
+                    print("can't find table")
 
                 item_info = get_info(pro_content)
                 item_info['id'] = str(curl)
@@ -159,6 +160,8 @@ if __name__ == '__main__':
         except Exception as e:
             print('id is ' + str(curl))
             print(str(e))
+        if curl == 10:
+            break
 
     gen_xml(item_infos)
     print(curl)
