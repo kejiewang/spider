@@ -1,1 +1,29 @@
-<mxfile host="app.diagrams.net" modified="2022-01-26T08:09:34.727Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36" etag="2Mb4oxOomKmta--eZzUm" version="15.3.4" type="github"><diagram id="nVtK3s1Wpxz3lFkNuYpC" name="Page-1">7VZdb5swFP01fqzEVwI8BkK7TepLs2nS3jzsgjWDI3NTkv36XYb5ZlU6rZ0m7Sn28cXHPudcAnHj4nyn6TG/V4xL4ljsTNw9cRzbDrb40yCXFvE9qwUyLZgpGoCD+M4N2JWdBOPVpBCUkiCOUzBVZclTmGBUa1VPyx6VnLIeacYXwCGlcol+FgzyFg0cf8DfcZHlHbO9DduVgnbF5iZVTpmqR5CbEDfWSkE7Ks4xl414nS7tc7e/WO0PpnkJ1zxw6315H54+Jm7xyd+rLH3au8GN2eWJypO5MEk8EgUk2JFkQyKbBI45Plw6TbQ6lYw321rEjepcAD8cadqs1pgCxHIoJM5sHC6P2XFyDfw8gsyx77gqOOgLlpjVwChoImT7Zl4PhtidyvnIDK8DqQlB1m896IQDI9ULZHOXss1FqmpRSFriLKqAajDRtv6MJNdo4lgrmvjPSGLYHrCPaJnhRQa6cErXbz2i26w5MGOjErguKfCoiVC18KG/6O9bs1lY8+EhlqKR2tlKPFf0VeMog96IkWmoPkzjW4FW33ispNKIlOqnoY9CyhlEpchKnKZIxBGPGi8Fvkd2ZqEQjDU0q/0y7ahlPp4N4dWh8WYmbhYeeisevloThX+9ieapDv83kflbsFa6aJemSAj/dtOELw3JmzUNToePgdbI4ZPKTX4A</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-01-26T08:21:30.565Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36" etag="zK3sH_bo-irge8lPJxun" version="15.3.4" type="github">
+  <diagram id="nVtK3s1Wpxz3lFkNuYpC" name="Page-1">
+    <mxGraphModel dx="1186" dy="740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="F4ZI9uTE3mU7DogcvD38-1" value="上层" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="170" width="120" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="F4ZI9uTE3mU7DogcvD38-3" value="" style="swimlane;startSize=0;" parent="1" vertex="1">
+          <mxGeometry x="280" y="170" width="200" height="70" as="geometry">
+            <mxRectangle x="290" y="200" width="50" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F4ZI9uTE3mU7DogcvD38-5" value="JRClient&lt;br&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="F4ZI9uTE3mU7DogcvD38-3" vertex="1">
+          <mxGeometry x="40" y="25" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="F4ZI9uTE3mU7DogcvD38-9" value="" style="swimlane;startSize=0;" parent="1" vertex="1">
+          <mxGeometry x="290" y="290" width="200" height="70" as="geometry">
+            <mxRectangle x="290" y="200" width="50" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F4ZI9uTE3mU7DogcvD38-10" value="JRAccount" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="F4ZI9uTE3mU7DogcvD38-9" vertex="1">
+          <mxGeometry x="40" y="25" width="40" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
